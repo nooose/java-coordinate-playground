@@ -5,9 +5,8 @@ import java.util.Objects;
 public class Point {
     public static final int MAX_VALUE = 24;
     public static final int MIN_VALUE = 0;
-    private int x;
-    private int y;
-
+    private final int x;
+    private final int y;
 
 
     public Point(int x, int y) {
@@ -19,22 +18,23 @@ public class Point {
         this.y = y;
     }
 
-    public Point(String point) {
-        String[] split = point.split(",");
-        int x = Integer.parseInt(split[0].trim());
-        int y = Integer.parseInt(split[1].trim());
+
+    public double getDistance(Point other) {
+        int xDifference = other.minusX(x);
+        int yDifference = other.minusY(y);
+        return Math.sqrt(square(xDifference) + square(yDifference));
     }
 
-    public static Point of(int x, int y) {
-        return new Point(x, y);
+    private int minusX(int number) {
+        return this.x - number;
     }
 
-    public int getX() {
-        return x;
+    private int minusY(int number) {
+        return this.y - number;
     }
 
-    public int getY() {
-        return y;
+    private static int square(int number) {
+        return number * number;
     }
 
     private boolean isNotValidateXY(int x, int y) {
@@ -47,6 +47,18 @@ public class Point {
 
     private boolean isLessThanMinValue(int x, int y) {
         return x < MIN_VALUE || y < MIN_VALUE;
+    }
+
+
+    public static Point of(int x, int y) {
+        return new Point(x, y);
+    }
+
+    public static Point ofCommaSeparator(String text) {
+        String[] values = text.split(",");
+        int x = Integer.parseInt(values[0].trim());
+        int y = Integer.parseInt(values[1].trim());
+        return new Point(x, y);
     }
 
     @Override

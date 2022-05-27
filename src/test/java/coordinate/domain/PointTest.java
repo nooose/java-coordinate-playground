@@ -10,17 +10,17 @@ public class PointTest {
 
     @Test
     void 생성() {
-        Point pointA = new Point("24, 24");
-        Point pointB = new Point("24, 24");
+        Point pointA = Point.ofCommaSeparator("24, 24");
+        Point pointB = Point.ofCommaSeparator("24, 24");
 
         assertThat(pointA).isEqualTo(pointB);
     }
 
     @Test
     void 생성_검증() {
-        assertThatThrownBy(() -> new Point("10, 25")).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> new Point("25, 10")).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> new Point("25, 25")).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> new Point("-1, 10")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Point.ofCommaSeparator("15, 25")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Point.ofCommaSeparator("25, 10")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Point.ofCommaSeparator("25, 25")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Point.ofCommaSeparator("-10, 10")).isInstanceOf(IllegalArgumentException.class);
     }
 }
