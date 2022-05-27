@@ -7,17 +7,26 @@ public class Point {
     public static final int MIN_VALUE = 0;
     private int x;
     private int y;
-    public Point(String point) {
-        String[] split = point.split(",");
-        int x = Integer.parseInt(split[0].trim());
-        int y = Integer.parseInt(split[1].trim());
 
+
+
+    public Point(int x, int y) {
         if (isNotValidateXY(x, y)) {
             throw new IllegalArgumentException("[범위 초과] " + MIN_VALUE + "~" + MAX_VALUE + " 범위여야 합니다.");
         }
 
         this.x = x;
         this.y = y;
+    }
+
+    public Point(String point) {
+        String[] split = point.split(",");
+        int x = Integer.parseInt(split[0].trim());
+        int y = Integer.parseInt(split[1].trim());
+    }
+
+    public static Point of(int x, int y) {
+        return new Point(x, y);
     }
 
     public int getX() {
