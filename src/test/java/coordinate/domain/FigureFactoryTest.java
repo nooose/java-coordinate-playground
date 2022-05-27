@@ -1,47 +1,74 @@
 package coordinate.domain;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class FigureFactoryTest {
 
-    @Test
-    public void line() {
-        List<Point> points = Arrays.asList(
-                Point.of(1, 2),
-                Point.of(2, 3));
-
-        Figure figure = FigureFactory.getInstance(points);
-        assertThat(figure).isInstanceOfAny(Line.class);
-        assertThat(figure.getName()).isEqualTo("선");
+    private List<Point> points;
+    @BeforeEach
+    void setUp() {
+        points = new ArrayList<>();
     }
 
     @Test
-    public void triangle() {
-        List<Point> points = Arrays.asList(
-                Point.of(1, 1),
-                Point.of(4, 1),
-                Point.of(1, 4));
-
-        Figure figure = FigureFactory.getInstance(points);
-        assertThat(figure).isInstanceOfAny(Triangle.class);
-        assertThat(figure.getName()).isEqualTo("삼각형");
+    void null_입력에_대한_예외처리() {
+        assertThatThrownBy(() -> FigureFactory.create(null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    public void rectangle() {
-        List<Point> points = Arrays.asList(
-                Point.of(1, 1),
-                Point.of(4, 1),
-                Point.of(1, 4),
-                Point.of(4, 4));
+    void Point_1개_입력에_대한_예외처리() {
+        points.add(new Point(1, 2));
+        assertThatThrownBy(() -> FigureFactory.create(points))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 
-        Figure figure = FigureFactory.getInstance(points);
-        assertThat(figure).isInstanceOfAny(Rectangle.class);
-        assertThat(figure.getName()).isEqualTo("사각형");
+    @Test
+    void Point_5개_입력에_대한_예외처리() {
+        points.add(new Point(1, 2));
+        points.add(new Point(3, 5));
+        points.add(new Point(5, 6));
+        points.add(new Point(7, 9));
+        points.add(new Point(11, 13));
+        assertThatThrownBy(() -> FigureFactory.create(points))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void Point가_2개일_경우_Line_생성() {
+        points.add(new Point(1, 2));
+        points.add(new Point(3, 4));
+        assertThat(FigureFactory.create(points)).isEqualTo(new Line(points));
+    }
+
+    @Test
+    void Point가_3개일_경우_Triangle_생성() {
+        points.add(new Point(1, 2));
+        points.add(new Point(3, 4));
+        points.add(new Point(4, 7));
+        assertThat(FigureFactory.create(points)).isEqualTo(new Triangle(points));
+    }
+
+    @Test
+    void Point가_4개일_경우_Rectangle_생성() {
+        points.add(new Point(1, 2));
+        points.add(new Point(3, 4));
+        points.add(new Point(1, 4));
+        points.add(new Point(3, 2));
+        assertThat(FigureFactory.create(points)).isEqualTo(new Rectangle(points));
+    }
+
+    @AfterEach
+    void tearDown() {
+        points = null;
     }
 }

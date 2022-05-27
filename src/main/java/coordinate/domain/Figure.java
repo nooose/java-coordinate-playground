@@ -5,9 +5,7 @@ import java.util.List;
 public interface Figure {
     List<Point> getPoints();
 
-    int size();
+    boolean hasPoint(int x, int y);
 
-    String getName();
-
-    double area();
+    double getAreaInfo();
 }

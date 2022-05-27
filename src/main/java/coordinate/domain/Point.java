@@ -3,21 +3,38 @@ package coordinate.domain;
 import java.util.Objects;
 
 public class Point {
-    public static final int MAX_VALUE = 24;
-    public static final int MIN_VALUE = 0;
+    private static final String ERROR_OUT_OF_POINT_RANGE
+            = "잘못된 범위의 입력값입니다. 정수 범위는 " + Point.LOWER_LIMIT + " ~ " + Point.UPPER_LIMIT + " 사이의 수로 입력해주세요.";
+    public static final int UPPER_LIMIT = 24;
+    public static final int LOWER_LIMIT = 0;
     private final int x;
     private final int y;
 
 
     public Point(int x, int y) {
-        if (isNotValidateXY(x, y)) {
-            throw new IllegalArgumentException("[범위 초과] " + MIN_VALUE + "~" + MAX_VALUE + " 범위여야 합니다.");
-        }
+        checkRangeOf(x, y);
 
         this.x = x;
         this.y = y;
     }
 
+    private void checkRangeOf(int x, int y) {
+        if (exceedRange(x) || exceedRange(y)) {
+            throw new IllegalArgumentException(ERROR_OUT_OF_POINT_RANGE);
+        }
+    }
+
+    private boolean exceedRange(int coordinate) {
+        return coordinate < LOWER_LIMIT || coordinate > UPPER_LIMIT;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 
     public double getDistance(Point other) {
         int xDifference = other.minusX(x);
@@ -37,17 +54,6 @@ public class Point {
         return number * number;
     }
 
-    private boolean isNotValidateXY(int x, int y) {
-        return isGreaterThanMaxValue(x, y) || isLessThanMinValue(x, y);
-    }
-
-    private boolean isGreaterThanMaxValue(int x, int y) {
-        return x > MAX_VALUE || y > MAX_VALUE;
-    }
-
-    private boolean isLessThanMinValue(int x, int y) {
-        return x < MIN_VALUE || y < MIN_VALUE;
-    }
 
 
     public static Point of(int x, int y) {
@@ -59,6 +65,10 @@ public class Point {
         int x = Integer.parseInt(values[0].trim());
         int y = Integer.parseInt(values[1].trim());
         return new Point(x, y);
+    }
+
+    public boolean isSame(int x, int y) {
+        return this.x == x && this.y == y;
     }
 
     @Override

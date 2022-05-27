@@ -10,17 +10,7 @@ public class Triangle extends AbstractFigure {
     }
 
     @Override
-    public int size() {
-        return TRIANGLE_POINT_SIZE;
-    }
-
-    @Override
-    public String getName() {
-        return "삼각형";
-    }
-
-    @Override
-    public double area() {
+    public double getAreaInfo() {
         return 0;
     }
 }

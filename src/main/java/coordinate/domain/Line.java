@@ -10,17 +10,7 @@ public class Line extends AbstractFigure {
     }
 
     @Override
-    public int size() {
-        return LINE_POINT_SIZE;
-    }
-
-    @Override
-    public String getName() {
-        return "선";
-    }
-
-    @Override
-    public double area() {
+    public double getAreaInfo() {
         return 0;
     }
 }

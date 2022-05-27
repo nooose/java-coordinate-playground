@@ -9,18 +9,25 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class PointTest {
 
     @Test
-    void 생성() {
-        Point pointA = Point.ofCommaSeparator("24, 24");
-        Point pointB = Point.ofCommaSeparator("24, 24");
-
-        assertThat(pointA).isEqualTo(pointB);
+    void 포인트_생성() {
+        assertThat(new Point(1, 2)).isEqualTo(new Point(1, 2));
     }
 
     @Test
-    void 생성_검증() {
-        assertThatThrownBy(() -> Point.ofCommaSeparator("15, 25")).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Point.ofCommaSeparator("25, 10")).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Point.ofCommaSeparator("25, 25")).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Point.ofCommaSeparator("-10, 10")).isInstanceOf(IllegalArgumentException.class);
+    void 좌표의_범위를_넘어가는_값이_생성자에_입력되었을_경우() {
+        assertThatThrownBy(() -> new Point(-1, 0))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new Point(0, -1))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new Point(25, 0))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new Point(0, 25))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 주어진_좌표와_포인트를_비교() {
+        assertThat(new Point(1, 2).isSame(1, 2)).isTrue();
+        assertThat(new Point(1, 2).isSame(1, 3)).isFalse();
     }
 }
