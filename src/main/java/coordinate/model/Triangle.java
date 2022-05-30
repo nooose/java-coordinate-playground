@@ -27,10 +27,10 @@ public class Triangle extends AbstractFigure {
         double secondSide = secondPoint.calculateDistance(thirdPoint);
         double thirdSide = thirdPoint.calculateDistance(firstPoint);
 
-        return calcuateFormulaOfHeron(firstSide, secondSide, thirdSide);
+        return calculateFormulaOfHeron(firstSide, secondSide, thirdSide);
     }
 
-    private double calcuateFormulaOfHeron(double firstSide, double secondSide, double thirdSide) {
+    private double calculateFormulaOfHeron(double firstSide, double secondSide, double thirdSide) {
         double s = (firstSide + secondSide + thirdSide) / 2;
 
         return Math.sqrt(s * (s - firstSide) * (s - secondSide) * (s - thirdSide));
