@@ -55,7 +55,7 @@ public class InputView {
     }
 
     private static Point generatePoint(String inputPoint) {
-        Pattern pattern = Pattern.compile("\\([0-9]{1,2},[0-9]{1,2}\\)");
+        Pattern pattern = Pattern.compile("\\(([0-9]{1,2}),([0-9]{1,2})\\)");
         Matcher matcher = pattern.matcher(inputPoint);
 
         if (matcher.find()) {
