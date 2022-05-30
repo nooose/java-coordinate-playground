@@ -19,11 +19,25 @@ public class Triangle extends AbstractFigure {
 
     @Override
     public double area() {
-        return 0;
+        Point firstPoint = getPoints().get(0);
+        Point secondPoint = getPoints().get(1);
+        Point thirdPoint = getPoints().get(2);
+
+        double firstSide = firstPoint.calculateDistance(secondPoint);
+        double secondSide = secondPoint.calculateDistance(thirdPoint);
+        double thirdSide = thirdPoint.calculateDistance(firstPoint);
+
+        return calcuateFormulaOfHeron(firstSide, secondSide, thirdSide);
+    }
+
+    private double calcuateFormulaOfHeron(double firstSide, double secondSide, double thirdSide) {
+        double s = (firstSide + secondSide + thirdSide) / 2;
+
+        return Math.sqrt(s * (s - firstSide) * (s - secondSide) * (s - thirdSide));
     }
 
     @Override
     public String getAreaInfo() {
-        return "";
+        return OUTPUT_AREA_OF_TRIANGLE + area();
     }
 }
