@@ -3,14 +3,19 @@ package coordinate.domain;
 import java.util.List;
 
 public class Line extends AbstractFigure {
-    public static final int LINE_POINT_SIZE = 2;
+    private static final String OUTPUT_AREA_OF_LINE = "두 점 사이의 거리는 ";
 
     public Line(List<Point> points) {
         super(points);
     }
 
     @Override
-    public double getAreaInfo() {
-        return 0;
+    public double area() {
+        return getPoints().get(0).calculateDistance(getPoints().get(1));
+    }
+
+    @Override
+    public String getAreaInfo() {
+        return OUTPUT_AREA_OF_LINE + area();
     }
 }

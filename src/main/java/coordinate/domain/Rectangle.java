@@ -1,5 +1,6 @@
 package coordinate.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
@@ -44,9 +45,22 @@ public class Rectangle extends AbstractFigure {
         return valuesOfPoints.size() != NUM_OF_TYPES_OF_RECTANGLE_COORDINATES;
     }
 
+    @Override
+    public double area() {
+        List<Point> points = getPoints();
+        int differenceOfXValues = calculateDifference(convertToUniqueXValues(points));
+        int differenceOfYValues = calculateDifference(convertToUniqueYValues(points));
+
+        return (double) (differenceOfXValues * differenceOfYValues);
+    }
+
+    private int calculateDifference(Set<Integer> valuesOfPoints) {
+        List<Integer> values = new ArrayList<>(valuesOfPoints);
+        return Math.abs(values.get(0) - values.get(1));
+    }
 
     @Override
-    public double getAreaInfo() {
-        return 0;
+    public String getAreaInfo() {
+        return OUTPUT_AREA_OF_RECTANGLE + area();
     }
 }

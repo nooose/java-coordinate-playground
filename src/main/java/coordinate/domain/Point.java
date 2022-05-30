@@ -28,43 +28,29 @@ public class Point {
         return coordinate < LOWER_LIMIT || coordinate > UPPER_LIMIT;
     }
 
+
+    public double calculateSlope(Point point) {
+        if (this.x == point.x) {
+            return Double.MAX_VALUE;
+        }
+        return Math.abs((double) (this.y - point.y) / (this.x - point.x));
+    }
+
+    public double calculateDistance(Point point) {
+        return Math.sqrt(squareDifference(this.x, point.x)
+                + squareDifference(this.y, point.y));
+    }
+
+    private double squareDifference(int firstValue, int secondValue) {
+        return Math.pow(firstValue - secondValue, 2);
+    }
+
     public int getX() {
         return x;
     }
 
     public int getY() {
         return y;
-    }
-
-    public double getDistance(Point other) {
-        int xDifference = other.minusX(x);
-        int yDifference = other.minusY(y);
-        return Math.sqrt(square(xDifference) + square(yDifference));
-    }
-
-    private int minusX(int number) {
-        return this.x - number;
-    }
-
-    private int minusY(int number) {
-        return this.y - number;
-    }
-
-    private static int square(int number) {
-        return number * number;
-    }
-
-
-
-    public static Point of(int x, int y) {
-        return new Point(x, y);
-    }
-
-    public static Point ofCommaSeparator(String text) {
-        String[] values = text.split(",");
-        int x = Integer.parseInt(values[0].trim());
-        int y = Integer.parseInt(values[1].trim());
-        return new Point(x, y);
     }
 
     public boolean isSame(int x, int y) {

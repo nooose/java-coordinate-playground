@@ -53,5 +53,9 @@ class RectangleTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    void 직사각형_넓이() {
+        assertThat(rectangle.area()).isEqualTo((double) 28);
+    }
 
 }

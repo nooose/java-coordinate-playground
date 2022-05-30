@@ -19,6 +19,7 @@ public abstract class AbstractFigure implements Figure {
         return points;
     }
 
+    // 테스트 목적
     @Override
     public boolean hasPoint(int x, int y) {
         return getPoints().stream()
