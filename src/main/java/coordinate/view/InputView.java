@@ -19,7 +19,7 @@ public class InputView {
     private static Scanner scanner = new Scanner(System.in);
 
     public static Figure inputCoordinates() {
-        System.out.println("INPUT_COORDINATE = " + INPUT_COORDINATE);
+        System.out.println(INPUT_COORDINATE);
         return inputCoordinates(scanner.nextLine());
     }
 
